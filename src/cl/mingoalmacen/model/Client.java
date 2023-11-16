@@ -6,9 +6,9 @@ package cl.mingoalmacen.model;
  * @author Ayleen Guajardo
  * @version 14/11/2023
  */
-public class User {
+public class Client {
     
-//  ↓ Atributtes of Class 'User' ↓
+//  ↓ Atributtes of Class 'Client' ↓
     private int rut;
     private String dvrun;
     private String nameUser;
@@ -19,10 +19,10 @@ public class User {
 /*↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑<Atributtes>↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑*/
     
 //  ↓ Constructors ↓                                                                           
-    public User() {
+    public Client() {
     }
 
-    public User(int rut, String dvrun, String nameUser, int phone, String email, String password, String addres) {
+    public Client(int rut, String dvrun, String nameUser, int phone, String email, String password, String addres) {
         this.rut = rut;
         this.dvrun = dvrun;
         this.nameUser = nameUser;

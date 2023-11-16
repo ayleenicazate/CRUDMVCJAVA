@@ -10,8 +10,8 @@ import java.util.ArrayList;
 public class DataBase { /* DataBase, first name was DataBase but i preferred rename */
     
     private ArrayList<Product> products;
-    private ArrayList<User> users;
-    private ArrayList<User> shoppingCart;
+    private ArrayList<Client> users;
+    private ArrayList<Client> shoppingCart;
     
 
     public DataBase() {
@@ -32,19 +32,19 @@ public class DataBase { /* DataBase, first name was DataBase but i preferred ren
         this.products = products;
     }
 
-    public ArrayList<User> getUsers() {
+    public ArrayList<Client> getUsers() {
         return users;
     }
 
-    public void setUsers(ArrayList<User> users) {
+    public void setUsers(ArrayList<Client> users) {
         this.users = users;
     }
 
-    public ArrayList<User> getShoppingCart() {
+    public ArrayList<Client> getShoppingCart() {
         return shoppingCart;
     }
 
-    public void setShoppingCart(ArrayList<User> shoppingCart) {
+    public void setShoppingCart(ArrayList<Client> shoppingCart) {
         this.shoppingCart = shoppingCart;
     }
     
