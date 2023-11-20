@@ -10,14 +10,14 @@ import cl.mingoalmacen.model.DataBase;
  *
  * @author Ayleen
  */
-public class testMain {
-    public static void main(String[] args) {
-        
-        DataBase db = new DataBase(); 
-        
-        System.out.println(db.getProducts());
-        
-        
-    }
-    
-}
+//public class testMain {
+//    public static void main(String[] args) {
+//        
+//        DataBase db = new DataBase(); 
+//        
+//        System.out.println(db.getProducts());
+//        
+//        
+//    }
+//    
+//}
