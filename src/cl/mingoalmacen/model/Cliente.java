@@ -9,92 +9,48 @@ package cl.mingoalmacen.model;
 public class Cliente {
     
 //  ↓ Atributtes of Class 'Cliente' ↓
-    private int rut;
-    private String dvrun;
-    private String nameUser;
-    private int phone;
-    private String email;
-    private String password;
-    private String addres;
+
+    private String nombre_usuario;
+    private String contrasena;
 /*↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑<Atributtes>↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑*/
     
 //  ↓ Constructors ↓                                                                           
     public Cliente() {
     }
 
-    public Cliente(int rut, String dvrun, String nameUser, int phone, String email, String password, String addres) {
-        this.rut = rut;
-        this.dvrun = dvrun;
-        this.nameUser = nameUser;
-        this.phone = phone;
-        this.email = email;
-        this.password = password;
-        this.addres = addres;
+    public Cliente(String nombre_usuario, String contrasena) {
+        this.nombre_usuario = nombre_usuario;
+        this.contrasena = contrasena;
     }
 /*↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑<Constructors>↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑*/
     
 //  ↓ Getters and Setters ↓
-    public String getAddres() {
-        return addres;
+    public String getNombre_usuario() {
+        return nombre_usuario;
     }
 
-    public void setAddres(String addres) {
-        this.addres = addres;
+    public void setNombre_usuario(String name) {
+        this.nombre_usuario = name;
     }
 
-    public int getRut() {
-        return rut;
+
+    public String getContrasena() {
+        return contrasena;
     }
 
-    public void setRut(int rut) {
-        this.rut = rut;
-    }
-
-    public String getDvrun() {
-        return dvrun;
-    }
-
-    public void setDvrun(String dvrun) {
-        this.dvrun = dvrun;
-    }
-
-    public String getNameUser() {
-        return nameUser;
-    }
-
-    public void setNameUser(String name) {
-        this.nameUser = name;
-    }
-
-    public int getPhone() {
-        return phone;
-    }
-
-    public void setPhone(int phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 /*↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑<Getters and Setters>↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑*/
-    
-    @Override /*ToString: shows all of atributtes on class, however, you can edit. Like: secret password ↓*/
+
+    @Override
     public String toString() {
-        return nameUser + "User{" + "rut=" + rut + ", dvrun=" + dvrun + ", name=" + ", phone=" + phone + ", email=" + email + ", password=***********"+ '}';
+        return "Cliente{" + "nombre_usuario=" + nombre_usuario + ", contrasena=" + contrasena + '}';
     }
+
+    
+    
+
     
     
     

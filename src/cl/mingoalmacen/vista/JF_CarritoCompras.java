@@ -4,6 +4,8 @@
  */
 package cl.mingoalmacen.vista;
 
+import cl.mingoalmacen.model.Producto;
+
 /**
  *
  * @author Ayleen
@@ -88,7 +90,8 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmi_comprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_comprarActionPerformed
-        // TODO add your handling code here:
+    // TODO add your handling code here:
+
     }//GEN-LAST:event_jmi_comprarActionPerformed
 
     private void jmi_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_mostrarActionPerformed

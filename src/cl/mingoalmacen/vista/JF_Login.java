@@ -270,7 +270,11 @@ public class JF_Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_verPerfilActionPerformed
 
     private void jtxt_nombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxt_nombreUsuarioActionPerformed
-        // TODO add your handling code here:
+
+        
+        
+        
+        
     }//GEN-LAST:event_jtxt_nombreUsuarioActionPerformed
 
     private void jPasswordField_contrasenaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField_contrasenaUsuarioActionPerformed
