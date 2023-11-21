@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 import cl.mingoalmacen.model.Conexion;
 
@@ -20,8 +19,8 @@ import cl.mingoalmacen.model.Conexion;
  */
 public class testMain {
     
-    public static void main(String[] args) {
-        
+    public static void main(String[] args) throws Exception {
+        mostrarProductos();
     }
     
     public static void mostrarProductos() throws Exception {
@@ -37,11 +36,10 @@ public class testMain {
                 String nombre_prod = resultSet.getString("NOMBRE : ");
                 int precio = resultSet.getInt("PRECIO : ");
                 int stock = resultSet.getInt("STOCK : ");
+                System.out.println(id_prod);
+                System.out.println("id_prod = " + id_prod + "nombre_prod = " + nombre_prod + "precio = " + precio + "stock = " + stock);
+
                 
-                System.out.println("id_prod = " + id_prod);
-                System.out.println("nombre_prod = " + nombre_prod);
-                System.out.println("precio = " + precio);
-                System.out.println("stock = " + stock);
             }       
             } catch (SQLException e) {
                 System.err.println("Error al obtener la lista de productos: " + e.getMessage());

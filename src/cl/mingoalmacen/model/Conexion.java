@@ -17,7 +17,7 @@ import java.util.Properties;
  */
 public class Conexion {
 
-    private static final String WALLET_PATH = "C:/Users/Ayleen/Documents/WALLET ORACLE";
+    private static final String WALLET_PATH = "C:/Users/Ayleen/Documents/WALLET ORACLE/Wallet_VUTKYCEBSYHZOASV";
     private static final String WALLET_PASSWORD = "Icaz.20880880-K!";
     private static final String JDBC_URL = "jdbc:oracle:thin:@vutkycebsyhzoasv_high";
 
