@@ -1,15 +1,18 @@
 package cl.mingoalmacen.model;
 
+import DAO.ICarritoDeCompras;
+
 
 /**
  *
  * @author Ayleen Guajardo
  * @version 14/11/2023
  */
-public class CarritoDeCompras extends Producto { 
+public class CarritoDeCompras extends Producto implements ICarritoDeCompras { 
     
     private int id_carrito;
     private int cantidad;
+    
 
     public CarritoDeCompras() {
         super();
@@ -37,6 +40,21 @@ public class CarritoDeCompras extends Producto {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    @Override
+    public boolean agregarProductoAlCarrito(CarritoDeCompras carrito) {
+        
+    }
+
+    @Override
+    public boolean eliminarProductoDelCarrito(int id_carrito) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean actualizarCantidadProductoEnCarrito(int id_carrito, int id_producto, int nuevaCantidad) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
     

@@ -23,6 +23,9 @@ public class ControladorProducto {
         for (Producto productoBuscado : productoBuscados) {
             System.out.println(productoBuscado);
         }
+        
     }
+    
+    public static 
 
 }

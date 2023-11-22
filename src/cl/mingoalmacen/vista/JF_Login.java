@@ -4,7 +4,9 @@
  */
 package cl.mingoalmacen.vista;
 
+import cl.mingoalmacen.controller.ControladorLogin;
 import cl.mingoalmacen.img.ImagenLogin;
+import cl.mingoalmacen.model.Cliente;
 
 /**
  *
@@ -38,9 +40,9 @@ public class JF_Login extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jPasswordField_contrasenaUsuario = new javax.swing.JPasswordField();
-        jtxt_nombreUsuario = new javax.swing.JTextField();
+        jtxt_correoElectronico = new javax.swing.JTextField();
         jbtn_entrar = new javax.swing.JButton();
+        jpass_contrasena = new javax.swing.JPasswordField();
         jp_img = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -96,16 +98,9 @@ public class JF_Login extends javax.swing.JFrame {
         jLabel4.setText("Contraseña:");
         jLabel4.setToolTipText("");
 
-        jPasswordField_contrasenaUsuario.setText("jPasswordField1");
-        jPasswordField_contrasenaUsuario.addActionListener(new java.awt.event.ActionListener() {
+        jtxt_correoElectronico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField_contrasenaUsuarioActionPerformed(evt);
-            }
-        });
-
-        jtxt_nombreUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jtxt_nombreUsuarioActionPerformed(evt);
+                jtxt_correoElectronicoActionPerformed(evt);
             }
         });
 
@@ -116,6 +111,12 @@ public class JF_Login extends javax.swing.JFrame {
         jbtn_entrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_entrarActionPerformed(evt);
+            }
+        });
+
+        jpass_contrasena.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jpass_contrasenaActionPerformed(evt);
             }
         });
 
@@ -131,9 +132,9 @@ public class JF_Login extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
-                        .addGroup(jp_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPasswordField_contrasenaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jtxt_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jp_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jtxt_correoElectronico, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                            .addComponent(jpass_contrasena))
                         .addGap(270, 270, 270))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_loginLayout.createSequentialGroup()
                         .addComponent(jLabel5)
@@ -158,11 +159,11 @@ public class JF_Login extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jp_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jtxt_nombreUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxt_correoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(6, 6, 6)
                 .addGroup(jp_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jPasswordField_contrasenaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jpass_contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbtn_entrar)
                 .addGap(27, 27, 27))
@@ -269,21 +270,27 @@ public class JF_Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jmi_verPerfilActionPerformed
 
-    private void jtxt_nombreUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxt_nombreUsuarioActionPerformed
+    private void jtxt_correoElectronicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxt_correoElectronicoActionPerformed
 
-        
-        
-        
-        
-    }//GEN-LAST:event_jtxt_nombreUsuarioActionPerformed
 
-    private void jPasswordField_contrasenaUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField_contrasenaUsuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField_contrasenaUsuarioActionPerformed
+    }//GEN-LAST:event_jtxt_correoElectronicoActionPerformed
 
     private void jbtn_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_entrarActionPerformed
-        // TODO add your handling code here:
+        jpass_contrasena.setEchoChar('*');
+
+        String nombreUsuario = jtxt_correoElectronico.getText();
+        String contraseña = new String(jpass_contrasena.getPassword());
+        
+        
+        
+        // Generar instancia del ControladorLogin y registrar el nuevo usuario
+        ControladorLogin controladorLogin = new ControladorLogin();
+        controladorLogin.registrarUsuario(nombreUsuario, contraseña);
     }//GEN-LAST:event_jbtn_entrarActionPerformed
+
+    private void jpass_contrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpass_contrasenaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jpass_contrasenaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -335,7 +342,6 @@ public class JF_Login extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu_opciones;
     private javax.swing.JMenu jMenu_salir;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField_contrasenaUsuario;
     private javax.swing.JButton jbtn_entrar;
     private javax.swing.JMenuItem jmi_actualizar;
     private javax.swing.JMenuItem jmi_cerrarSesion;
@@ -344,6 +350,7 @@ public class JF_Login extends javax.swing.JFrame {
     private javax.swing.JMenu jmnu_carritoCompras;
     private javax.swing.JPanel jp_img;
     private javax.swing.JPanel jp_login;
-    private javax.swing.JTextField jtxt_nombreUsuario;
+    private javax.swing.JPasswordField jpass_contrasena;
+    private javax.swing.JTextField jtxt_correoElectronico;
     // End of variables declaration//GEN-END:variables
 }
