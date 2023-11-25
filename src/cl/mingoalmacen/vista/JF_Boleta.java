@@ -5,6 +5,7 @@
 package cl.mingoalmacen.vista;
 
 import cl.mingoalmacen.controller.RegistroCarrito;
+import cl.mingoalmacen.img.ImagenLogin;
 import cl.mingoalmacen.model.CarritoDeCompras;
 import java.awt.Component;
 import java.awt.Window;
@@ -24,6 +25,7 @@ public class JF_Boleta extends javax.swing.JFrame {
      */
     public JF_Boleta() {
         initComponents();
+        ImagenLogin.cambiarIconoJFrame(this);
     }
 
     /**
@@ -49,8 +51,9 @@ public class JF_Boleta extends javax.swing.JFrame {
         jButton2.setText("jButton2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Finalizando compra");
+        setTitle("El Mingo Almacén - Finalizando Compra");
         setBackground(new java.awt.Color(204, 204, 204));
+        setMaximumSize(new java.awt.Dimension(388, 368));
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
 
@@ -205,6 +208,7 @@ public class JF_Boleta extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

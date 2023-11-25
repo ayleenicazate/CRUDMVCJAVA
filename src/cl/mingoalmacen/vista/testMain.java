@@ -36,13 +36,12 @@ public class testMain {
                 int id_prod = resultSet.getInt("ID_PROD");
                 String nombre_prod = resultSet.getString("NOMBRE_PROD");
                 int precio = resultSet.getInt("PRECIO");
-                int stock = resultSet.getInt("STOCK");
+
 
                 System.out.println("\n" + "Informacion del producto: " + "\n"
                 + "ID = " + id_prod + "\n"
                 + "Nombre = " + nombre_prod + "\n"
-                + "Precio = $" + precio + "\n"
-                + "Stock disponible = " + stock + 
+                + "Precio = $" + precio +  
                 "\n");
 
             }

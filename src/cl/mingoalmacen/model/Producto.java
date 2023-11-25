@@ -54,32 +54,4 @@ public class Producto {
         this.stock = stock;
     }
 
-
-    @Override
-    public String toString() {
-        
-        String isAvailable = "";
-        String cantidad = "";
-
-//        if (available) {
-//            isAvailable = "Si";
-//        } else {
-//            isAvailable = "no";
-//        }
-//        
-//        if (stock==1) {
-//            cantidad = "unidad";
-//        } else {
-//            cantidad = "unidades";
-//        }
-        
-        return "\n" + "Informacion del producto N°"+ this.getId_prod() + "\n"
-                + "ID = " + this.getId_prod() + "\n"
-                + "Nombre = " + this.getNombre_prod() + "\n"
-                + "Precio = $" + this.getPrecio() + "\n"
-                + "Unidades = " + this.getStock() + " " + cantidad + "\n" +
-                "Disponible = " + isAvailable +
-                "\n" + 
-                "\n";
-    }
 }

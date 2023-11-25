@@ -5,33 +5,36 @@
 package cl.mingoalmacen.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  *
  * @author Ayleen
  */
-public class OrdenCompra extends CarritoDeCompras{
-    private int id_compra;
+public class OrdenCompra {
+
+    private int id_cliente;
     private Double total;
     private Date fecha;
 
     public OrdenCompra() {
     }
 
-    public OrdenCompra(int id_compra, Double total, Date fecha, int id_carrito, int cantidad, int id_prod, String nombre_prod, int precio, int stock) {
-        super(id_carrito, cantidad, id_prod, nombre_prod, precio, stock);
-        this.id_compra = id_compra;
+    public OrdenCompra(int id_cliente, Double total, Date fecha) {
+
+        this.id_cliente = id_cliente;
         this.total = total;
         this.fecha = fecha;
     }
 
-    public int getId_compra() {
-        return id_compra;
+    public int getId_cliente() {
+        return id_cliente;
     }
 
-    public void setId_compra(int id_compra) {
-        this.id_compra = id_compra;
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
     }
+
 
     public Double getTotal() {
         return total;
@@ -48,6 +51,7 @@ public class OrdenCompra extends CarritoDeCompras{
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    
-    
+
+
+
 }

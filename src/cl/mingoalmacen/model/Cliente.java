@@ -1,4 +1,3 @@
-
 package cl.mingoalmacen.model;
 
 /**
@@ -7,12 +6,13 @@ package cl.mingoalmacen.model;
  * @version 14/11/2023
  */
 public class Cliente {
-    
+
 //  ↓ Atributtes of Class 'Cliente' ↓
     private String nombre_usuario;
     private String contrasena;
-/*↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑<Atributtes>↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑*/
-    
+
+    /*↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑<Atributtes>↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑*/
+
 //  ↓ Constructors ↓                                                                           
     public Cliente() {
     }
@@ -22,8 +22,8 @@ public class Cliente {
         this.nombre_usuario = nombre_usuario;
         this.contrasena = contrasena;
     }
-    
-/*↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑<Constructors>↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑*/
+
+    /*↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑<Constructors>↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑*/
 //  ↓ Getters and Setters ↓
     public String getNombre_usuario() {
         return nombre_usuario;
@@ -33,7 +33,6 @@ public class Cliente {
         this.nombre_usuario = name;
     }
 
-
     public String getContrasena() {
         return contrasena;
     }
@@ -41,19 +40,15 @@ public class Cliente {
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
-/*↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑<Getters and Setters>↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑*/
 
-    @Override
-    public String toString() {
-        return "Cliente{"+"nombre_usuario=" + nombre_usuario + ", contrasena=********";
+    /*↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑<Getters and Setters>↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑*/
+
+    public boolean validarNombreUsuario(String nombre_usuario) {
+        return !nombre_usuario.isEmpty() && !nombre_usuario.contains(" ");
     }
 
-    
-    
+    public boolean validarContrasena(String contrasena) {
+        return !contrasena.isEmpty();
+    }
 
-    
-    
-    
-    
-    
 }

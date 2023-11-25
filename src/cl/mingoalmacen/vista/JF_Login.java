@@ -4,9 +4,15 @@
  */
 package cl.mingoalmacen.vista;
 
+import DAO.ClienteDAO;
 import cl.mingoalmacen.controller.ControladorLogin;
+import cl.mingoalmacen.controller.RegistroCarrito;
 import cl.mingoalmacen.img.ImagenLogin;
 import cl.mingoalmacen.model.Cliente;
+import static cl.mingoalmacen.utilities.Validador.validarCorreo;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -20,6 +26,8 @@ public class JF_Login extends javax.swing.JFrame {
     public JF_Login() {
         initComponents();
         ImagenLogin.cambiarIconoJFrame(this);
+        RegistroCarrito rc = new RegistroCarrito();
+        rc.borrarTodo();
     }
 
     /**
@@ -43,18 +51,13 @@ public class JF_Login extends javax.swing.JFrame {
         jtxt_correoElectronico = new javax.swing.JTextField();
         jbtn_entrar = new javax.swing.JButton();
         jpass_contrasena = new javax.swing.JPasswordField();
+        jbtn_registrar = new javax.swing.JButton();
         jp_img = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu_opciones = new javax.swing.JMenu();
-        jmnu_carritoCompras = new javax.swing.JMenu();
-        jmi_actualizar = new javax.swing.JMenuItem();
-        JMenu_Usuario = new javax.swing.JMenu();
-        jmi_verPerfil = new javax.swing.JMenuItem();
         jMenu_salir = new javax.swing.JMenu();
         jmi_cerrarSesion = new javax.swing.JMenuItem();
-        jmi_salir = new javax.swing.JMenuItem();
 
         jMenu6.setText("File");
         jMenuBar2.add(jMenu6);
@@ -65,8 +68,10 @@ public class JF_Login extends javax.swing.JFrame {
         jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("El Mingo Almacén");
+        setTitle("El Mingo Almacén - Inicio");
         setBackground(new java.awt.Color(255, 102, 102));
+        setMaximumSize(new java.awt.Dimension(800, 705));
+        setPreferredSize(new java.awt.Dimension(800, 705));
 
         jp_login.setBackground(new java.awt.Color(255, 102, 102));
 
@@ -74,7 +79,7 @@ public class JF_Login extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("¡Bienvenido a Almacén Online");
+        jLabel1.setText("¡Bienvenido a Verduleria Online");
         jLabel1.setToolTipText("");
 
         jLabel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -120,10 +125,24 @@ public class JF_Login extends javax.swing.JFrame {
             }
         });
 
+        jbtn_registrar.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Red"));
+        jbtn_registrar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jbtn_registrar.setForeground(new java.awt.Color(255, 255, 255));
+        jbtn_registrar.setText("Registrar");
+        jbtn_registrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtn_registrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jp_loginLayout = new javax.swing.GroupLayout(jp_login);
         jp_login.setLayout(jp_loginLayout);
         jp_loginLayout.setHorizontalGroup(
             jp_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jp_loginLayout.createSequentialGroup()
+                .addGap(123, 123, 123)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_loginLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jp_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,22 +151,18 @@ public class JF_Login extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4))
                         .addGap(18, 18, 18)
-                        .addGroup(jp_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jtxt_correoElectronico, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(jpass_contrasena))
-                        .addGap(270, 270, 270))
+                        .addGroup(jp_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtxt_correoElectronico, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jpass_contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(287, 287, 287))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_loginLayout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addGap(311, 311, 311))))
-            .addGroup(jp_loginLayout.createSequentialGroup()
-                .addGroup(jp_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jp_loginLayout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(jLabel1))
-                    .addGroup(jp_loginLayout.createSequentialGroup()
-                        .addGap(354, 354, 354)
-                        .addComponent(jbtn_entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(311, 311, 311))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jp_loginLayout.createSequentialGroup()
+                        .addComponent(jbtn_registrar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbtn_entrar, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(313, 313, 313))))
         );
         jp_loginLayout.setVerticalGroup(
             jp_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,7 +180,9 @@ public class JF_Login extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(jpass_contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jbtn_entrar)
+                .addGroup(jp_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbtn_entrar)
+                    .addComponent(jbtn_registrar))
                 .addGap(27, 27, 27))
         );
 
@@ -184,8 +201,8 @@ public class JF_Login extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel2)
-                .addGap(0, 32, Short.MAX_VALUE))
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jp_imgLayout = new javax.swing.GroupLayout(jp_img);
@@ -196,33 +213,8 @@ public class JF_Login extends javax.swing.JFrame {
         );
         jp_imgLayout.setVerticalGroup(
             jp_imgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jp_imgLayout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 62, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        jMenu_opciones.setText("Opciones");
-
-        jmnu_carritoCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/mingoalmacen/img/carrito-de-supermercado.png"))); // NOI18N
-        jmnu_carritoCompras.setText("Carrito de compras");
-        jmnu_carritoCompras.add(jmi_actualizar);
-
-        jMenu_opciones.add(jmnu_carritoCompras);
-
-        JMenu_Usuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/mingoalmacen/img/usuario.png"))); // NOI18N
-        JMenu_Usuario.setText("Usuario");
-
-        jmi_verPerfil.setText("Ver perfil");
-        jmi_verPerfil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmi_verPerfilActionPerformed(evt);
-            }
-        });
-        JMenu_Usuario.add(jmi_verPerfil);
-
-        jMenu_opciones.add(JMenu_Usuario);
-
-        jMenuBar1.add(jMenu_opciones);
 
         jMenu_salir.setText("Salir");
 
@@ -235,9 +227,6 @@ public class JF_Login extends javax.swing.JFrame {
         });
         jMenu_salir.add(jmi_cerrarSesion);
 
-        jmi_salir.setText("Salir");
-        jMenu_salir.add(jmi_salir);
-
         jMenuBar1.add(jMenu_salir);
 
         setJMenuBar(jMenuBar1);
@@ -246,8 +235,8 @@ public class JF_Login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jp_login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jp_img, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jp_login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -258,39 +247,91 @@ public class JF_Login extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        setSize(new java.awt.Dimension(816, 708));
+        pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmi_cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_cerrarSesionActionPerformed
-
+        System.exit(0);
     }//GEN-LAST:event_jmi_cerrarSesionActionPerformed
-
-    private void jmi_verPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_verPerfilActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmi_verPerfilActionPerformed
 
     private void jtxt_correoElectronicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxt_correoElectronicoActionPerformed
 
 
     }//GEN-LAST:event_jtxt_correoElectronicoActionPerformed
 
-    private void jbtn_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_entrarActionPerformed
-        jpass_contrasena.setEchoChar('*');
+    private void actualizarEstadoBotonEntrar() {
+        String usuario = jtxt_correoElectronico.getText();
+        String contrasena = new String(jpass_contrasena.getPassword());
 
+        Cliente cliente = new Cliente();
+        boolean usuarioValido = cliente.validarNombreUsuario(usuario);
+        boolean contrasenaValida = cliente.validarContrasena(contrasena);
+
+        jbtn_entrar.setEnabled(usuarioValido && contrasenaValida);
+    }
+
+    private void jbtn_entrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_entrarActionPerformed
         String nombreUsuario = jtxt_correoElectronico.getText();
-        String contraseña = new String(jpass_contrasena.getPassword());
-        
-        
-        
-        // Generar instancia del ControladorLogin y registrar el nuevo usuario
+        String contrasena = new String(jpass_contrasena.getPassword());
+
+        if (nombreUsuario.isEmpty() || contrasena.isEmpty() ) {
+            JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacíos.");
+            return; // Salir del método si hay campos vacíos
+        }
+
         ControladorLogin controladorLogin = new ControladorLogin();
-        controladorLogin.registrarUsuario(nombreUsuario, contraseña);
+        boolean credencialesValidas = controladorLogin.verificarCredenciales(nombreUsuario, contrasena);
+
+        if (credencialesValidas) {
+            JOptionPane.showMessageDialog(null, "Ingreso exitoso", "Bienvenido", JOptionPane.INFORMATION_MESSAGE);
+
+            // Abre la ventana del carrito de compras
+            JF_CarritoCompras carrito = new JF_CarritoCompras();
+            carrito.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "Error de ingreso", JOptionPane.ERROR_MESSAGE);
+        }
+
     }//GEN-LAST:event_jbtn_entrarActionPerformed
+
 
     private void jpass_contrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpass_contrasenaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jpass_contrasenaActionPerformed
+
+    private void jbtn_registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_registrarActionPerformed
+        jpass_contrasena.setEchoChar('*');
+
+        String nombreUsuario = jtxt_correoElectronico.getText();
+        String contrasena = new String(jpass_contrasena.getPassword());
+
+        Cliente cliente = new Cliente();
+        ClienteDAO clienteDAO = new ClienteDAO();
+
+        boolean nombreValido = cliente.validarNombreUsuario(nombreUsuario);
+        boolean contrasenaValida = cliente.validarContrasena(contrasena);
+        boolean nombreUsuarioExistente = clienteDAO.existeNombreUsuario(nombreUsuario);
+        boolean correoValido = validarCorreo(nombreUsuario);
+
+        //mostrar mensaje de error según el error
+        if (nombreUsuario.isEmpty() || contrasena.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Error: El usuario y la contraseña no pueden estar vacíos.", "Error de registro", JOptionPane.ERROR_MESSAGE);
+        } else if (!nombreValido) {
+            JOptionPane.showMessageDialog(null, "Error: Debe ser formato correo electrónico.", "Error de registro", JOptionPane.ERROR_MESSAGE);
+        } else if (!contrasenaValida) {
+            JOptionPane.showMessageDialog(null, "Error: La contraseña no puede estar vacía.", "Error de registro", JOptionPane.ERROR_MESSAGE);
+        } else if (!correoValido) {
+            JOptionPane.showMessageDialog(null, "Error: El correo electrónico no es válido.", "Error de registro", JOptionPane.ERROR_MESSAGE);
+        } else if (nombreUsuarioExistente) {
+            JOptionPane.showMessageDialog(null, "El nombre de usuario ya está en uso. Por favor, elija otro.", "Error de registro", JOptionPane.ERROR_MESSAGE);
+        } else {
+            // Si todo es válido y el nombre de usuario no existe, proceder con el registro
+            ControladorLogin controladorLogin = new ControladorLogin();
+            controladorLogin.registrarUsuario(nombreUsuario, contrasena);
+            JOptionPane.showMessageDialog(null, "Usuario registrado con éxito" + "\n" + "Ahora pulse el botón Entrar.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_jbtn_registrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -328,7 +369,6 @@ public class JF_Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu JMenu_Usuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -339,15 +379,11 @@ public class JF_Login extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenu jMenu_opciones;
     private javax.swing.JMenu jMenu_salir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton jbtn_entrar;
-    private javax.swing.JMenuItem jmi_actualizar;
+    private javax.swing.JButton jbtn_registrar;
     private javax.swing.JMenuItem jmi_cerrarSesion;
-    private javax.swing.JMenuItem jmi_salir;
-    private javax.swing.JMenuItem jmi_verPerfil;
-    private javax.swing.JMenu jmnu_carritoCompras;
     private javax.swing.JPanel jp_img;
     private javax.swing.JPanel jp_login;
     private javax.swing.JPasswordField jpass_contrasena;

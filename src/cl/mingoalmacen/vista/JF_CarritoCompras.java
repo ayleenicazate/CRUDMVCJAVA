@@ -4,12 +4,12 @@
  */
 package cl.mingoalmacen.vista;
 
-import DAO.ProductoDAO;
 import cl.mingoalmacen.controller.ControladorProducto;
 import cl.mingoalmacen.controller.RegistroCarrito;
+import cl.mingoalmacen.img.ImagenLogin;
 import cl.mingoalmacen.model.CarritoDeCompras;
 import cl.mingoalmacen.model.Producto;
-import java.util.ArrayList;
+import cl.mingoalmacen.utilities.Validador;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +25,7 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
      */
     public JF_CarritoCompras() {
         initComponents();
+        ImagenLogin.cambiarIconoJFrame(this);
     }
 
     /**
@@ -62,20 +63,25 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
         jbtn_actualizarCarrito = new javax.swing.JButton();
         jbtn_eliminarPorNombre = new javax.swing.JButton();
         jtxt_nomProdEliminar = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jmnu_carritoCompras = new javax.swing.JMenu();
-        jmi_comprar = new javax.swing.JMenuItem();
-        jmi_mostrar = new javax.swing.JMenuItem();
-        jmi_actualizar = new javax.swing.JMenuItem();
-        jmi_eliminar = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jmi_cerrarVentana = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("El Mingo Almacén - Inventario");
+        setMaximumSize(new java.awt.Dimension(1009, 697));
 
         jPanel1.setBackground(new java.awt.Color(255, 102, 102));
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
+        });
 
         jtbl_productos.setBackground(new java.awt.Color(255, 204, 204));
         jtbl_productos.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
@@ -86,10 +92,28 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
             new String [] {
                 "ID", "Nombre", "Precio", "Stock Disponible"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtbl_productos.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jtbl_productos);
+        if (jtbl_productos.getColumnModel().getColumnCount() > 0) {
+            jtbl_productos.getColumnModel().getColumn(0).setResizable(false);
+            jtbl_productos.getColumnModel().getColumn(1).setResizable(false);
+            jtbl_productos.getColumnModel().getColumn(2).setResizable(false);
+            jtbl_productos.getColumnModel().getColumn(3).setResizable(false);
+        }
 
         jbtn_listarProd.setText("Listar Productos");
+        jbtn_listarProd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtn_listarProd.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/mingoalmacen/img/verduras.png"))); // NOI18N
+        jbtn_listarProd.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/mingoalmacen/img/verduras (1).png"))); // NOI18N
         jbtn_listarProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_listarProdActionPerformed(evt);
@@ -179,6 +203,8 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
         jbtn_agregarProdCarrito.setBackground(new java.awt.Color(255, 153, 153));
         jbtn_agregarProdCarrito.setForeground(new java.awt.Color(255, 153, 153));
         jbtn_agregarProdCarrito.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/mingoalmacen/img/compra (1).png"))); // NOI18N
+        jbtn_agregarProdCarrito.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jbtn_agregarProdCarrito.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
         jbtn_agregarProdCarrito.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbtn_agregarProdCarritoMouseClicked(evt);
@@ -197,10 +223,25 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
             new String [] {
                 "Nombre", "Precio", "Cantidad"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jtbl_carritoConProductos.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jtbl_carritoConProductos);
+        if (jtbl_carritoConProductos.getColumnModel().getColumnCount() > 0) {
+            jtbl_carritoConProductos.getColumnModel().getColumn(0).setResizable(false);
+            jtbl_carritoConProductos.getColumnModel().getColumn(1).setResizable(false);
+            jtbl_carritoConProductos.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         jbtn_actualizarCarrito.setText("Actualizar resultados");
+        jbtn_actualizarCarrito.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtn_actualizarCarrito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_actualizarCarritoActionPerformed(evt);
@@ -208,11 +249,30 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
         });
 
         jbtn_eliminarPorNombre.setText("Eliminar por nombre");
+        jbtn_eliminarPorNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jbtn_eliminarPorNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbtn_eliminarPorNombreActionPerformed(evt);
             }
         });
+
+        jtxt_nomProdEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxt_nomProdEliminarActionPerformed(evt);
+            }
+        });
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/mingoalmacen/img/carro.png"))); // NOI18N
+        jButton1.setText("Finalizar compra");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Su Carrito de Compras:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -220,16 +280,6 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jbtn_actualizarCarrito)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jbtn_eliminarPorNombre)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jtxt_nomProdEliminar))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -269,7 +319,27 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
                                     .addComponent(jtxt_cantidadProdAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addComponent(jbtn_agregarProdCarrito, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jbtn_actualizarCarrito)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jbtn_eliminarPorNombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jtxt_nomProdEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(12, 12, 12)))))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -305,13 +375,17 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
                             .addComponent(jLabel7)))
                     .addComponent(jbtn_agregarProdCarrito))
                 .addGap(18, 18, 18)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbtn_actualizarCarrito)
                     .addComponent(jbtn_eliminarPorNombre)
                     .addComponent(jtxt_nomProdEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -321,62 +395,41 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbtn_listarProd))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jbtn_listarProd, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(31, Short.MAX_VALUE))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbtn_listarProd))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33))
         );
 
-        jMenu1.setText("Opciones");
-
-        jmnu_carritoCompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cl/mingoalmacen/img/carrito-de-supermercado.png"))); // NOI18N
-        jmnu_carritoCompras.setText("Carrito de compras");
-
-        jmi_comprar.setText("Comprar");
-        jmi_comprar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmi_comprarActionPerformed(evt);
-            }
-        });
-        jmnu_carritoCompras.add(jmi_comprar);
-
-        jmi_mostrar.setText("Mostrar");
-        jmi_mostrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmi_mostrarActionPerformed(evt);
-            }
-        });
-        jmnu_carritoCompras.add(jmi_mostrar);
-
-        jmi_actualizar.setText("Actualizar");
-        jmnu_carritoCompras.add(jmi_actualizar);
-
-        jmi_eliminar.setText("Eliminar");
-        jmnu_carritoCompras.add(jmi_eliminar);
-
-        jMenu1.add(jmnu_carritoCompras);
-
-        jMenuBar1.add(jMenu1);
+        jMenuBar1.setBackground(new java.awt.Color(255, 204, 204));
 
         jMenu2.setText("Salir");
+
+        jmi_cerrarVentana.setText("Cerrar Ventana");
+        jmi_cerrarVentana.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_cerrarVentanaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jmi_cerrarVentana);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -393,16 +446,8 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jmi_comprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_comprarActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_jmi_comprarActionPerformed
-
-    private void jmi_mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_mostrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jmi_mostrarActionPerformed
 
     private void jbtn_listarProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_listarProdActionPerformed
         int idProd;
@@ -438,6 +483,12 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
     private void jbtn_nombreBusc1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_nombreBusc1ActionPerformed
 
         String nombreProd = this.jtxt_nombreBusc.getText(); // Obtener el nombre del campo de texto
+
+        if (nombreProd.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo de búsqueda no puede estar vacío.");
+            return; // Salir del método si el campo está vacío
+        }
+
         int idProd;
         int precio;
         int stock;
@@ -457,6 +508,8 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
 
             modelo.addRow(new Object[]{idProd, nombreProd, precio, stock});
         }
+
+        this.jtxt_nombreBusc.setText("");
 
 
     }//GEN-LAST:event_jbtn_nombreBusc1ActionPerformed
@@ -490,6 +543,7 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
 
             modelo.addRow(new Object[]{idProd, nombreProd, precio, stock});
         }
+        this.jtxt_precioBusc.setText("");
     }//GEN-LAST:event_jbtn_precioBusc1ActionPerformed
 
     private void jbtn_nombreBusc1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jbtn_nombreBusc1MouseClicked
@@ -511,8 +565,32 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
     private void jbtn_agregarProdCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_agregarProdCarritoActionPerformed
         // Obtener los valores de los campos de texto
         String nombre = jtxt_nomProdAgregar.getText();
-        int precio = Integer.parseInt(jtxt_precioProdAgregar.getText());
-        int cantidad = Integer.parseInt(jtxt_cantidadProdAgregar.getText());
+        String precioText = jtxt_precioProdAgregar.getText();
+        String cantidadText = jtxt_cantidadProdAgregar.getText();
+
+        Validador valida = new Validador();
+
+        // Validar que el nombre contenga solo texto
+        if (!valida.esTextoValido(nombre)) {
+            JOptionPane.showMessageDialog(null, "Ingrese un nombre válido (solo texto).");
+            return;
+        }
+
+        // Validar que el precio y la cantidad contengan solo números
+        if (!valida.esNumeroValido(precioText) || !valida.esNumeroValido(cantidadText)) {
+            JOptionPane.showMessageDialog(null, "Ingrese valores numéricos para precio y cantidad.");
+            return;
+        }
+
+        // Verificar si los campos están vacíos
+        if (nombre.isEmpty() || precioText.isEmpty() || cantidadText.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacíos.");
+            return; // Salir del método si hay campos vacíos
+        }
+
+        // Convertir a tipo int si los campos no están vacíos
+        int precio = Integer.parseInt(precioText);
+        int cantidad = Integer.parseInt(cantidadText);
 
         // Crear un objeto Producto con los datos ingresados
         CarritoDeCompras carrito = new CarritoDeCompras(precio, nombre, cantidad);
@@ -523,8 +601,13 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
         if (agregado) {
             JOptionPane.showMessageDialog(null, "Producto agregado al carrito exitosamente.");
         } else {
-            JOptionPane.showMessageDialog(null, "No se pudo agregar el producto al carrito. Ingrese un número válido para el precio.");
+            JOptionPane.showMessageDialog(null, "No se pudo agregar el producto al carrito. Verifique que el producto exista.");
         }
+
+        // Limpiar los campos de texto
+        this.jtxt_nomProdAgregar.setText("");
+        this.jtxt_precioProdAgregar.setText("");
+        this.jtxt_cantidadProdAgregar.setText("");
 
     }//GEN-LAST:event_jbtn_agregarProdCarritoActionPerformed
 
@@ -543,22 +626,32 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
             modelo.addRow(new Object[]{nombreProd, precio, cantidad});
         }
 
-
+        // Habilita o deshabilita el botón jButton1 según el estado de la tabla
+        jButton1.setEnabled(jtbl_carritoConProductos.getRowCount() > 0);
     }//GEN-LAST:event_jbtn_actualizarCarritoActionPerformed
 
+    /**
+     * Uso del Metodo RegistroCarrito.eliminarProdCarrito()
+     */
     private void jbtn_eliminarPorNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtn_eliminarPorNombreActionPerformed
 
         String nombreProductoABorrar = jtxt_nomProdEliminar.getText(); // Obtener el nombre del producto a eliminar
+
+        if (nombreProductoABorrar.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Los campos no pueden estar vacíos.");
+            return; // Salir del método si hay campos vacíos
+        }
+
         RegistroCarrito rc = new RegistroCarrito();
 
         boolean eliminado = rc.eliminarProdCarrito(nombreProductoABorrar);
 
         if (eliminado) {
-            JOptionPane.showMessageDialog(null, "Producto eliminado del carrito exitosamente.");
-           
+            JOptionPane.showMessageDialog(null, "Producto eliminado del carrito exitosamente." + "\n" + "Por favor, actualice los resultados.");
+
         } else {
-            JOptionPane.showMessageDialog(null, "No se pudo eliminar el producto del carrito.");
-            
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar el producto del carrito." + "\n" + "Por favor, verifique si está correctamente escrito.");
+
         }
 
         // Actualizar la tabla después de eliminar el producto
@@ -566,6 +659,30 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_jbtn_eliminarPorNombreActionPerformed
+
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel1MouseClicked
+
+    private void jmi_cerrarVentanaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_cerrarVentanaActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jmi_cerrarVentanaActionPerformed
+
+    private void jtxt_nomProdEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxt_nomProdEliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxt_nomProdEliminarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        if (jtbl_carritoConProductos.getRowCount() > 0) {
+            JF_Boleta boleta = new JF_Boleta();
+            boleta.setVisible(true);
+        } else {
+            // Muestra un mensaje o realiza alguna acción si la tabla está vacía
+            // Por ejemplo:
+            JOptionPane.showMessageDialog(this, "El carrito está vacío, no se puede generar la boleta.");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -611,7 +728,9 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -619,7 +738,6 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
@@ -632,11 +750,7 @@ public class JF_CarritoCompras extends javax.swing.JFrame {
     private javax.swing.JButton jbtn_listarProd;
     private javax.swing.JButton jbtn_nombreBusc1;
     private javax.swing.JButton jbtn_precioBusc1;
-    private javax.swing.JMenuItem jmi_actualizar;
-    private javax.swing.JMenuItem jmi_comprar;
-    private javax.swing.JMenuItem jmi_eliminar;
-    private javax.swing.JMenuItem jmi_mostrar;
-    private javax.swing.JMenu jmnu_carritoCompras;
+    private javax.swing.JMenuItem jmi_cerrarVentana;
     private javax.swing.JTable jtbl_carritoConProductos;
     private javax.swing.JTable jtbl_productos;
     private javax.swing.JTextField jtxt_cantidadProdAgregar;
